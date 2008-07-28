@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Jul 28 00:27:17 2008 -->
+<!--Generated with glade3 3.4.5 on Mon Jul 28 01:28:19 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="mainwindow">
+    <property name="visible">True</property>
     <property name="title" translatable="yes">ChiTransit</property>
+    <property name="window_position">GTK_WIN_POS_CENTER</property>
+    <signal name="destroy" handler="on_mainwindow_destroy"/>
     <child>
       <widget class="GtkNotebook" id="mainnotebook">
         <property name="visible">True</property>
