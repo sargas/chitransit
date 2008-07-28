@@ -71,6 +71,14 @@ void buses_load() {
 	GMatchInfo *match_info;
 	GtkComboBox *paceroutes = GTK_COMBO_BOX(glade_xml_get_widget(xml, "paceroutes"));
 	GtkComboBox *ctaroutes = GTK_COMBO_BOX(glade_xml_get_widget(xml, "ctaroutes"));
+	
+	/* clear these routes first, bad experiences if we don't 
+	   hopefully its ok to reuse model like this, i doubt we gotta clear it
+	*/
+	GtkListStore* model = GTK_LIST_STORE(gtk_combo_box_get_model(paceroutes));
+	gtk_list_store_clear(model);
+	model = GTK_LIST_STORE(gtk_combo_box_get_model(ctaroutes));
+	gtk_list_store_clear(model);
 
 	/* handle pace buses first */
 	name = g_dir_read_name(pacebuses);

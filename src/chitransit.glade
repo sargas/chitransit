@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Jul 28 16:39:21 2008 -->
+<!--Generated with glade3 3.4.5 on Mon Jul 28 18:46:48 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="mainwindow">
     <property name="visible">True</property>
@@ -12,11 +12,13 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="tab_pos">GTK_POS_BOTTOM</property>
+        <property name="tab_vborder">14</property>
         <property name="homogeneous">True</property>
         <signal name="switch_page" handler="loadpage"/>
         <child>
           <widget class="GtkVBox" id="vbox1">
             <property name="visible">True</property>
+            <property name="spacing">5</property>
             <child>
               <widget class="GtkButton" id="btnupdate">
                 <property name="visible">True</property>
@@ -326,7 +328,7 @@
                 <child>
                   <widget class="GtkLabel" id="label4">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Add New Route:
+                    <property name="label" translatable="yes">New Route:
 (CTA or Pace)</property>
                   </widget>
                   <packing>
@@ -630,6 +632,8 @@
           </widget>
           <packing>
             <property name="position">3</property>
+            <property name="tab_expand">True</property>
+            <property name="reorderable">True</property>
           </packing>
         </child>
         <child>
@@ -640,6 +644,41 @@
           <packing>
             <property name="type">tab</property>
             <property name="position">3</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHBox" id="hbox5">
+            <property name="visible">True</property>
+            <child>
+              <widget class="GtkDrawingArea" id="drawingarea1">
+                <property name="visible">True</property>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkVScrollbar" id="vscrollbar1">
+                <property name="visible">True</property>
+                <property name="adjustment">0 0 100 1 10 10</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkImage" id="image1">
+            <property name="visible">True</property>
+            <property name="stock">gtk-preferences</property>
+          </widget>
+          <packing>
+            <property name="type">tab</property>
+            <property name="position">4</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
