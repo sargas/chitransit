@@ -12,7 +12,7 @@ bin_PROGRAMS = chitransit
 
 # add the sources to compile for your application
 chitransit_SOURCES = \
-  main.c
+  main.c buses.c
 
 chitransit_LDADD  = @DEPENDENCIES_LIBS@
 
