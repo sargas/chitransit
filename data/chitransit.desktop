@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Chicago Transit System
+Comment=Shows CTA information
+Type=Application
+Exec=chitransit
+Terminal=false
+Categories=GTK;Applications
+Icon=chitransit
