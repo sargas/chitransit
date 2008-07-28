@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void buses_load();
 void on_btndownloadbus_clicked(GtkWidget *widget);
 void on_ctaroutes_changed(GtkWidget *widget);
 void on_btnpacemap_clicked(GtkWidget *widget);
