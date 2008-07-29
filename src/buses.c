@@ -1,5 +1,4 @@
 #include <buses.h>
-#include <main.h>
 
 //download either pace or cta bus info
 void on_btndownloadbus_clicked(GtkWidget *widget) {
@@ -53,13 +52,29 @@ void on_btndownloadbus_clicked(GtkWidget *widget) {
 	buses_load(); /* reload em */
 }
 void on_ctaroutes_changed(GtkWidget *widget) {
-	return;
+	/* so, ya wanta no your way around the chitown buses, eh? */
+	GtkComboBox* routeWidget = GTK_COMBO_BOX(widget);
+	gchar* route = gtk_combo_box_get_active_text(routeWidget);
+	gchar url[512];
+	if(route == NULL) {
+		return; //this happens when page loads
+	}
+	g_sprintf(url,"/home/joe/.chitransit/ctabus/%s.pdf",route);
+	openPDF(url);
 }
 void on_btnpacemap_clicked(GtkWidget *widget) {
-	return;
+	GtkComboBox *routeWidget = GTK_COMBO_BOX(glade_xml_get_widget(xml, "paceroutes"));
+	gchar* route = gtk_combo_box_get_active_text(routeWidget);
+	gchar url[512];
+	g_sprintf(url,"/home/joe/.chitransit/pacebus/%smap.pdf",route);
+	openPDF(url);
 }
-void on_btnpacesced_clicked(GtkWidget *widget) {
-	return;
+void on_btnpacesched_clicked(GtkWidget *widget) {
+	GtkComboBox *routeWidget = GTK_COMBO_BOX(glade_xml_get_widget(xml, "paceroutes"));
+	gchar* route = gtk_combo_box_get_active_text(routeWidget);
+	gchar url[512];
+	g_sprintf(url,"/home/joe/.chitransit/pacebus/%ssched.pdf",route);
+	openPDF(url);
 }
 
 

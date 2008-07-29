@@ -23,13 +23,16 @@ int main (int argc, char **argv) {
 		return 1;
 	}
 
-	/* connect signal handlers 
-	glade_xml_signal_autoconnect(xml);*/
+	/* connect signal handlers
+	glade_xml_signal_autoconnect(xml); */
 	/* TODO: wonder why this doesn't work? */
 	glade_xml_signal_connect(xml,"on_mainwindow_destroy",G_CALLBACK(on_mainwindow_destroy));
 	glade_xml_signal_connect(xml,"on_btndownloadbus_clicked",G_CALLBACK(on_btndownloadbus_clicked));
 	glade_xml_signal_connect(xml,"loadpage",G_CALLBACK(loadpage));
-	
+	glade_xml_signal_connect(xml,"on_ctaroutes_changed",G_CALLBACK(on_ctaroutes_changed));
+	glade_xml_signal_connect(xml,"on_btnpacemap_clicked",G_CALLBACK(on_btnpacemap_clicked));
+	glade_xml_signal_connect(xml,"on_btnpacesched_clicked",G_CALLBACK(on_btnpacesched_clicked));
+
 	gtk_main();
 	return 0;
 }
