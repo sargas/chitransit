@@ -2,7 +2,7 @@
 # misc. data files
 #
 # None yet
-# dist_pkgdata_DATA =
+dist_pkgdata_DATA = chitransit.glade
 
 #
 # desktop integration: .desktop file

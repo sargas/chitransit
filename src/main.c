@@ -12,7 +12,7 @@ void loadpage(GtkNotebook *notebook, GtkNotebookPage *page,guint page_num, gpoin
 
 int main (int argc, char **argv) {
 	gtk_init(&argc, &argv);
-	xml = glade_xml_new("chitransit.glade", NULL,NULL);
+	xml = glade_xml_new(getDataFile("chitransit.glade"), NULL,NULL);
 	
 	/* setup curl */
 	curl_global_init(CURL_GLOBAL_ALL); 
@@ -32,6 +32,8 @@ int main (int argc, char **argv) {
 	glade_xml_signal_connect(xml,"on_ctaroutes_changed",G_CALLBACK(on_ctaroutes_changed));
 	glade_xml_signal_connect(xml,"on_btnpacemap_clicked",G_CALLBACK(on_btnpacemap_clicked));
 	glade_xml_signal_connect(xml,"on_btnpacesched_clicked",G_CALLBACK(on_btnpacesched_clicked));
+	glade_xml_signal_connect(xml,"on_pdfviewer_changed",G_CALLBACK(on_pdfviewer_changed));
+	glade_xml_signal_connect(xml,"on_datapath_changed",G_CALLBACK(on_datapath_changed));
 
 	gtk_main();
 	return 0;

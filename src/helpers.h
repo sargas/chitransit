@@ -7,5 +7,6 @@
 #include <unistd.h>
 
 void openPDF(gchar* path);
+gchar* getDataFile(gchar* file);
 
 #endif

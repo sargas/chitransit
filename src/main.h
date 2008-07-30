@@ -10,6 +10,7 @@
 #include <curl/curl.h>
 
 #include <buses.h>
+#include <prefs.h>
 
 
 /* declared up here so call back functions can use it */
