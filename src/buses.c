@@ -14,7 +14,7 @@ void on_btndownloadbus_clicked(GtkWidget *widget) {
 
 	if(route < 205) {
 		sprintf(buffer,"http://transitchicago.com/maps/Bus/Bus/%d.pdf",route);
-		sprintf(dest,"/home/joe/.chitransit/ctabus/%d.pdf",route);
+		sprintf(dest,"%s/ctabus/%d.pdf",getProgData(NULL),route);
 		map = fopen(dest,"w");
 		curl_easy_setopt(easyhandle, CURLOPT_WRITEDATA, map);
 		curl_easy_setopt(easyhandle, CURLOPT_URL, buffer);
@@ -29,9 +29,9 @@ void on_btndownloadbus_clicked(GtkWidget *widget) {
 		fclose(map);
 	} else {
 		sprintf(buffer,"http://pacebus.com/pdf/schedules/%dsched.pdf",route);
-		sprintf(dest,"/home/joe/.chitransit/pacebus/%dsched.pdf",route);
+		sprintf(dest,"%s/pacebus/%dsched.pdf",getProgData(NULL),route);
 		sprintf(buffer2,"http://pacebus.com/pdf/maps/%dmap.pdf",route);
-		sprintf(dest2,"/home/joe/.chitransit/pacebus/%dmap.pdf",route);
+		sprintf(dest2,"%s/pacebus/%dmap.pdf",getProgData(NULL),route);
 		map = fopen(dest,"w");
 		curl_easy_setopt(easyhandle, CURLOPT_WRITEDATA, map);
 		curl_easy_setopt(easyhandle, CURLOPT_URL, buffer);
@@ -59,28 +59,32 @@ void on_ctaroutes_changed(GtkWidget *widget) {
 	if(route == NULL) {
 		return; //this happens when page loads
 	}
-	g_sprintf(url,"/home/joe/.chitransit/ctabus/%s.pdf",route);
+	g_sprintf(url,"%s/ctabus/%s.pdf",getProgData(NULL),route);
 	openPDF(url);
 }
 void on_btnpacemap_clicked(GtkWidget *widget) {
 	GtkComboBox *routeWidget = GTK_COMBO_BOX(glade_xml_get_widget(xml, "paceroutes"));
 	gchar* route = gtk_combo_box_get_active_text(routeWidget);
 	gchar url[512];
-	g_sprintf(url,"/home/joe/.chitransit/pacebus/%smap.pdf",route);
+	g_sprintf(url,"%s/pacebus/%smap.pdf",getProgData(NULL),route);
 	openPDF(url);
 }
 void on_btnpacesched_clicked(GtkWidget *widget) {
 	GtkComboBox *routeWidget = GTK_COMBO_BOX(glade_xml_get_widget(xml, "paceroutes"));
 	gchar* route = gtk_combo_box_get_active_text(routeWidget);
 	gchar url[512];
-	g_sprintf(url,"/home/joe/.chitransit/pacebus/%ssched.pdf",route);
+	g_sprintf(url,"%s/pacebus/%ssched.pdf",getProgData(NULL),route);
 	openPDF(url);
 }
 
 
 void buses_load() {
-	GDir* pacebuses = g_dir_open("/home/joe/.chitransit/pacebus/",0,NULL);
-	GDir* ctabuses   = g_dir_open("/home/joe/.chitransit/ctabus",0,NULL);
+	if(g_mkdir_with_parents(getProgData("pacebus"),0755) != 0
+		|| g_mkdir_with_parents(getProgData("ctabus"),0755) != 0) {
+		g_warning("Couldn't create buses folders");
+	}
+	GDir* pacebuses = g_dir_open(getProgData("pacebus"),0,NULL);
+	GDir* ctabuses   = g_dir_open(getProgData("ctabus"),0,NULL);
 	const gchar *name;
 	GRegex *regex;
 	GMatchInfo *match_info;

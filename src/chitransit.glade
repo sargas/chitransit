@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Tue Jul 29 15:33:30 2008 -->
+<!--Generated with glade3 3.4.5 on Wed Jul 30 10:33:18 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="mainwindow">
     <property name="visible">True</property>
@@ -685,8 +685,7 @@
                         <child>
                           <widget class="GtkComboBoxEntry" id="pdfviewer">
                             <property name="visible">True</property>
-                            <property name="items" translatable="yes">epdfview
-</property>
+                            <property name="items" translatable="yes">epdfview</property>
                             <signal name="changed" handler="on_pdfviewer_changed"/>
                             <child internal-child="entry">
                               <widget class="GtkEntry" id="comboboxentry-entry1">
@@ -715,37 +714,47 @@
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkEntry" id="datapath">
+                          <widget class="GtkLabel" id="label16">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <signal name="changed" handler="on_datapath_changed"/>
+                            <property name="label" translatable="yes">Downloads:</property>
+                          </widget>
+                          <packing>
+                            <property name="y_options"></property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkComboBoxEntry" id="datapath">
+                            <property name="visible">True</property>
+                            <property name="items" translatable="yes">/tmp/chitransit/
+/media/card/chitransit/</property>
+                            <child internal-child="entry">
+                              <widget class="GtkEntry" id="comboboxentry-entry2">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </widget>
+                            </child>
                           </widget>
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="right_attach">2</property>
-                            <property name="y_options">GTK_FILL</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkLabel" id="label16">
-                            <property name="visible">True</property>
-                            <property name="label" translatable="yes">Data Path:</property>
-                          </widget>
-                          <packing>
                             <property name="y_options"></property>
                           </packing>
                         </child>
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkLabel" id="label18">
+                      <widget class="GtkButton" id="btnApplyPrefs">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Data Path&lt;/b&gt;: Will be kept in RAM if this is in /tmp </property>
-                        <property name="use_markup">True</property>
-                        <property name="wrap">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="label" translatable="yes">gtk-apply</property>
+                        <property name="use_stock">True</property>
+                        <property name="response_id">0</property>
+                        <signal name="clicked" handler="on_btnApplyPrefs_clicked"/>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>

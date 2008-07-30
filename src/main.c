@@ -7,6 +7,8 @@ void on_mainwindow_destroy(GtkWidget *widget){
 void loadpage(GtkNotebook *notebook, GtkNotebookPage *page,guint page_num, gpointer user_data) {
 	if(page_num == 1){
 		buses_load();
+	} else if(page_num == 4) {
+		prefs_load();
 	}
 }
 
@@ -23,6 +25,11 @@ int main (int argc, char **argv) {
 		return 1;
 	}
 
+	/* load config file at beginning
+	 * note that changes from here till we end are not saved :/
+	 */
+	loadConfig();
+
 	/* connect signal handlers
 	glade_xml_signal_autoconnect(xml); */
 	/* TODO: wonder why this doesn't work? */
@@ -32,8 +39,7 @@ int main (int argc, char **argv) {
 	glade_xml_signal_connect(xml,"on_ctaroutes_changed",G_CALLBACK(on_ctaroutes_changed));
 	glade_xml_signal_connect(xml,"on_btnpacemap_clicked",G_CALLBACK(on_btnpacemap_clicked));
 	glade_xml_signal_connect(xml,"on_btnpacesched_clicked",G_CALLBACK(on_btnpacesched_clicked));
-	glade_xml_signal_connect(xml,"on_pdfviewer_changed",G_CALLBACK(on_pdfviewer_changed));
-	glade_xml_signal_connect(xml,"on_datapath_changed",G_CALLBACK(on_datapath_changed));
+	glade_xml_signal_connect(xml,"on_btnApplyPrefs_clicked",G_CALLBACK(on_btnApplyPrefs_clicked));
 
 	gtk_main();
 	return 0;

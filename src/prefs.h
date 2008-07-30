@@ -3,7 +3,11 @@
 
 #include <gtk/gtk.h>
 
-void on_pdfviewer_changed(GtkWidget *widget);
-void on_datapath_changed(GtkWidget *widget);
+#include <glade/glade.h>
+#include <main.h>
 
+void prefs_load();
+void fill_combo_box(gchar *widgetname, gchar *settingsname);
+void on_btnApplyPrefs_clicked(GtkButton *button);
+void update_settings(gchar* widgetname, gchar *settingsname);
 #endif
