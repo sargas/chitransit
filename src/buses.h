@@ -19,3 +19,4 @@ void on_btnpacemap_clicked(GtkWidget *widget);
 void on_btnpacesched_clicked(GtkWidget *widget);
 
 #endif
+

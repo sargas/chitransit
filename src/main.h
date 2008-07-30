@@ -12,6 +12,7 @@
 #include <buses.h>
 #include <prefs.h>
 #include <helpers.h>
+#include <maps.h>
 
 /* declared up here so call back functions can use it */
 GladeXML *xml;

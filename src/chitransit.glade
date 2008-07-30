@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Wed Jul 30 10:33:18 2008 -->
+<!--Generated with glade3 3.4.5 on Wed Jul 30 14:24:53 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="mainwindow">
+    <property name="height_request">400</property>
     <property name="visible">True</property>
     <property name="title" translatable="yes">ChiTransit</property>
     <property name="window_position">GTK_WIN_POS_CENTER</property>
+    <property name="default_height">400</property>
     <signal name="destroy" handler="on_mainwindow_destroy"/>
     <child>
       <widget class="GtkNotebook" id="mainnotebook">
@@ -491,44 +493,22 @@
         <child>
           <widget class="GtkTable" id="table1">
             <property name="visible">True</property>
-            <property name="n_rows">4</property>
+            <property name="n_rows">3</property>
             <property name="n_columns">2</property>
             <property name="column_spacing">39</property>
             <property name="row_spacing">22</property>
             <child>
-              <widget class="GtkButton" id="btnrails">
+              <widget class="GtkButton" id="btndownsys">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="label" translatable="yes">Rail Map</property>
+                <property name="label" translatable="yes">Download</property>
                 <property name="response_id">0</property>
-                <signal name="clicked" handler="on_btnrails_clicked"/>
-              </widget>
-            </child>
-            <child>
-              <widget class="GtkButton" id="btnaddr">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="label" translatable="yes">Station Addresses</property>
-                <property name="response_id">0</property>
-                <signal name="clicked" handler="on_btnaddr_clicked"/>
+                <signal name="clicked" handler="downmaps"/>
               </widget>
               <packing>
-                <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkButton" id="btnpeds">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="label" translatable="yes">Pedway/Trolleys</property>
-                <property name="response_id">0</property>
-                <signal name="clicked" handler="on_btnpeds_clicked"/>
-              </widget>
-              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
                 <property name="top_attach">2</property>
                 <property name="bottom_attach">3</property>
               </packing>
@@ -540,39 +520,23 @@
                 <property name="receives_default">True</property>
                 <property name="label" translatable="yes">RTA System Map</property>
                 <property name="response_id">0</property>
-                <signal name="clicked" handler="on_btnsys_clicked"/>
+                <signal name="clicked" handler="mapview"/>
               </widget>
               <packing>
-                <property name="top_attach">3</property>
-                <property name="bottom_attach">4</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="btndownrails">
+              <widget class="GtkButton" id="btnpeds">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="label" translatable="yes">Download</property>
+                <property name="label" translatable="yes">Pedway/Trolleys</property>
                 <property name="response_id">0</property>
-                <signal name="clicked" handler="on_btndownrails_clicked"/>
+                <signal name="clicked" handler="mapview"/>
               </widget>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkButton" id="btndownaddr">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="label" translatable="yes">Download</property>
-                <property name="response_id">0</property>
-                <signal name="clicked" handler="on_btndownaddr_clicked"/>
-              </widget>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
                 <property name="top_attach">1</property>
                 <property name="bottom_attach">2</property>
               </packing>
@@ -584,29 +548,37 @@
                 <property name="receives_default">True</property>
                 <property name="label" translatable="yes">Download</property>
                 <property name="response_id">0</property>
-                <signal name="clicked" handler="on_btndownpeds_clicked"/>
+                <signal name="clicked" handler="downmaps"/>
               </widget>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
-                <property name="top_attach">2</property>
-                <property name="bottom_attach">3</property>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="btndownsys">
+              <widget class="GtkButton" id="btnrails">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="label" translatable="yes">Rail Map</property>
+                <property name="response_id">0</property>
+                <signal name="clicked" handler="mapview"/>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkButton" id="btndownrails">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="label" translatable="yes">Download</property>
                 <property name="response_id">0</property>
-                <signal name="clicked" handler="on_btndownsys_clicked"/>
+                <signal name="clicked" handler="downmaps"/>
               </widget>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
-                <property name="top_attach">3</property>
-                <property name="bottom_attach">4</property>
               </packing>
             </child>
           </widget>

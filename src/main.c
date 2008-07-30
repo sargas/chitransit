@@ -4,11 +4,14 @@ void on_mainwindow_destroy(GtkWidget *widget){
 	gtk_main_quit ();
 }
 
+/* put in in order coded */
 void loadpage(GtkNotebook *notebook, GtkNotebookPage *page,guint page_num, gpointer user_data) {
 	if(page_num == 1){
 		buses_load();
 	} else if(page_num == 4) {
 		prefs_load();
+	} else if(page_num == 2) {
+		maps_load();
 	}
 }
 
@@ -40,6 +43,8 @@ int main (int argc, char **argv) {
 	glade_xml_signal_connect(xml,"on_btnpacemap_clicked",G_CALLBACK(on_btnpacemap_clicked));
 	glade_xml_signal_connect(xml,"on_btnpacesched_clicked",G_CALLBACK(on_btnpacesched_clicked));
 	glade_xml_signal_connect(xml,"on_btnApplyPrefs_clicked",G_CALLBACK(on_btnApplyPrefs_clicked));
+	glade_xml_signal_connect(xml,"downmaps",G_CALLBACK(downmaps));
+	glade_xml_signal_connect(xml,"mapview",G_CALLBACK(mapview));
 
 	gtk_main();
 	return 0;
