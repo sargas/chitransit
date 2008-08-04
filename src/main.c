@@ -12,6 +12,8 @@ void loadpage(GtkNotebook *notebook, GtkNotebookPage *page,guint page_num, gpoin
 		prefs_load();
 	} else if(page_num == 2) {
 		maps_load();
+	} else if(page_num == 0) {
+		load_trains();
 	}
 }
 
@@ -29,7 +31,7 @@ int main (int argc, char **argv) {
 	}
 
 	/* load config file at beginning
-	 * note that changes from here till we end are not saved :/
+	 * note that changes from here till we end not saved :/
 	 */
 	loadConfig();
 
@@ -45,7 +47,10 @@ int main (int argc, char **argv) {
 	glade_xml_signal_connect(xml,"on_btnApplyPrefs_clicked",G_CALLBACK(on_btnApplyPrefs_clicked));
 	glade_xml_signal_connect(xml,"downmaps",G_CALLBACK(downmaps));
 	glade_xml_signal_connect(xml,"mapview",G_CALLBACK(mapview));
+	glade_xml_signal_connect(xml,"on_btnupdate_clicked",G_CALLBACK(on_btnupdate_clicked));
+	glade_xml_signal_connect(xml,"openStation",G_CALLBACK(openStation));
 
+	load_trains();
 	gtk_main();
 	return 0;
 }

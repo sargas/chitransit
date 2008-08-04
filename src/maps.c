@@ -1,5 +1,6 @@
 #include <maps.h>
 
+/* TODO: put file sizes in the buttons */
 void maps_load() {
 	chimap temp[] = {
 		{
