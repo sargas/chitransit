@@ -14,6 +14,8 @@ void loadpage(GtkNotebook *notebook, GtkNotebookPage *page,guint page_num, gpoin
 		maps_load();
 	} else if(page_num == 0) {
 		load_trains();
+	} else if(page_num == 3) {
+		load_faq();
 	}
 }
 
@@ -49,8 +51,12 @@ int main (int argc, char **argv) {
 	glade_xml_signal_connect(xml,"mapview",G_CALLBACK(mapview));
 	glade_xml_signal_connect(xml,"on_btnupdate_clicked",G_CALLBACK(on_btnupdate_clicked));
 	glade_xml_signal_connect(xml,"openStation",G_CALLBACK(openStation));
+	glade_xml_signal_connect(xml,"on_btnfaq_clicked",G_CALLBACK(on_btnfaq_clicked));
 
 	load_trains();
 	gtk_main();
+
+	//cleanup
+	curl_easy_cleanup(easyhandle);
 	return 0;
 }

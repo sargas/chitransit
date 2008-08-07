@@ -206,14 +206,14 @@
 ##### PAST THIS, SHOULD NOT BE MODIFIED IF YOUR JUST ADDING/CHANGING STATIONS
 
 foreach $line (@stations) {
-	#print "station " . $line->[0] . "stations[] = {\n";
+	print "station " . $line->[0] . "stations[] = {\n";
 	$blah = 0;
 	foreach $station (@{$line->[1]}) {
-		#print ",\n" if($blah);$blah++;
-		#print "\t{\"" . $station->[0] . "\" , \"" .
-			#(defined($station->[1])?$station->[1]:$station->[0]) . "\" ,".($blah-1) ."}";
+		print ",\n" if($blah);$blah++;
+		print "\t{\"" . $station->[0] . "\" , \"" .
+			(defined($station->[1])?$station->[1]:$station->[0]) . "\" ,".($blah-1) ."}";
 	}
-	#print "\n};\n";
+	print "\n};\n";
 }
 
 

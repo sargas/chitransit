@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Sun Aug  3 20:42:08 2008 -->
+<!--Generated with glade3 3.4.5 on Wed Aug  6 22:04:08 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="mainwindow">
     <property name="height_request">400</property>
@@ -514,7 +514,7 @@
             <property name="column_spacing">39</property>
             <property name="row_spacing">22</property>
             <child>
-              <widget class="GtkButton" id="btndownrails">
+              <widget class="GtkButton" id="btndownsys">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -525,17 +525,37 @@
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="btnrails">
+              <widget class="GtkButton" id="btnsys">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="label" translatable="yes">Rail Map</property>
+                <property name="label" translatable="yes">RTA System Map</property>
                 <property name="response_id">0</property>
                 <signal name="clicked" handler="mapview"/>
               </widget>
+              <packing>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkButton" id="btnpeds">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="label" translatable="yes">Pedway/Trolleys</property>
+                <property name="response_id">0</property>
+                <signal name="clicked" handler="mapview"/>
+              </widget>
+              <packing>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+              </packing>
             </child>
             <child>
               <widget class="GtkButton" id="btndownpeds">
@@ -554,35 +574,17 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="btnpeds">
+              <widget class="GtkButton" id="btnrails">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="label" translatable="yes">Pedway/Trolleys</property>
+                <property name="label" translatable="yes">Rail Map</property>
                 <property name="response_id">0</property>
                 <signal name="clicked" handler="mapview"/>
               </widget>
-              <packing>
-                <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
-              </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="btnsys">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="label" translatable="yes">RTA System Map</property>
-                <property name="response_id">0</property>
-                <signal name="clicked" handler="mapview"/>
-              </widget>
-              <packing>
-                <property name="top_attach">2</property>
-                <property name="bottom_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkButton" id="btndownsys">
+              <widget class="GtkButton" id="btndownrails">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -593,8 +595,6 @@
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
-                <property name="top_attach">2</property>
-                <property name="bottom_attach">3</property>
               </packing>
             </child>
           </widget>
@@ -619,12 +619,13 @@
           <widget class="GtkVBox" id="vbox4">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkButton" id="btndowntracks">
+              <widget class="GtkButton" id="btnfaq">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="label" translatable="yes">Download Track Data</property>
+                <property name="label" translatable="yes">Download Chicago-l.org FAQ</property>
                 <property name="response_id">0</property>
+                <signal name="clicked" handler="on_btnfaq_clicked"/>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -632,19 +633,44 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
+              <widget class="GtkScrolledWindow" id="scrolledwindow3">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                <child>
+                  <widget class="GtkViewport" id="viewport3">
+                    <property name="visible">True</property>
+                    <property name="resize_mode">GTK_RESIZE_QUEUE</property>
+                    <child>
+                      <widget class="GtkTextView" id="faqviewer">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="pixels_above_lines">1</property>
+                        <property name="pixels_below_lines">1</property>
+                        <property name="pixels_inside_wrap">1</property>
+                        <property name="editable">False</property>
+                        <property name="wrap_mode">GTK_WRAP_WORD_CHAR</property>
+                        <property name="text" translatable="yes">
+</property>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
+              <packing>
+                <property name="position">1</property>
+              </packing>
             </child>
           </widget>
           <packing>
             <property name="position">3</property>
-            <property name="tab_expand">True</property>
-            <property name="reorderable">True</property>
           </packing>
         </child>
         <child>
           <widget class="GtkLabel" id="label7">
             <property name="visible">True</property>
-            <property name="label" translatable="yes">Tracks</property>
+            <property name="label" translatable="yes">FAQ</property>
           </widget>
           <packing>
             <property name="type">tab</property>
@@ -671,44 +697,6 @@
                         <property name="n_rows">2</property>
                         <property name="n_columns">2</property>
                         <child>
-                          <widget class="GtkComboBoxEntry" id="datapath">
-                            <property name="visible">True</property>
-                            <property name="items" translatable="yes">/tmp/chitransit/
-/media/card/chitransit/</property>
-                            <child internal-child="entry">
-                              <widget class="GtkEntry" id="comboboxentry-entry2">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                              </widget>
-                            </child>
-                          </widget>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkLabel" id="label16">
-                            <property name="visible">True</property>
-                            <property name="label" translatable="yes">Downloads:</property>
-                          </widget>
-                          <packing>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkLabel" id="label17">
-                            <property name="visible">True</property>
-                            <property name="label" translatable="yes">PDF Viewer:</property>
-                          </widget>
-                          <packing>
-                            <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
                           <widget class="GtkComboBoxEntry" id="pdfviewer">
                             <property name="visible">True</property>
                             <property name="items" translatable="yes">epdfview</property>
@@ -725,6 +713,44 @@
                             <property name="right_attach">2</property>
                             <property name="top_attach">1</property>
                             <property name="bottom_attach">2</property>
+                            <property name="y_options"></property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkLabel" id="label17">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">PDF Viewer:</property>
+                          </widget>
+                          <packing>
+                            <property name="top_attach">1</property>
+                            <property name="bottom_attach">2</property>
+                            <property name="y_options"></property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkLabel" id="label16">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Downloads:</property>
+                          </widget>
+                          <packing>
+                            <property name="y_options"></property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkComboBoxEntry" id="datapath">
+                            <property name="visible">True</property>
+                            <property name="items" translatable="yes">/tmp/chitransit/
+/media/card/chitransit/</property>
+                            <child internal-child="entry">
+                              <widget class="GtkEntry" id="comboboxentry-entry2">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </widget>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
                             <property name="y_options"></property>
                           </packing>
                         </child>

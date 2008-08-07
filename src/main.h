@@ -14,6 +14,7 @@
 #include <helpers.h>
 #include <maps.h>
 #include <trains.h>
+#include <faq.h>
 
 /* declared up here so call back functions can use it */
 GladeXML *xml;
