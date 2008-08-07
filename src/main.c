@@ -37,9 +37,10 @@ int main (int argc, char **argv) {
 	 */
 	loadConfig();
 
-	/* connect signal handlers
-	glade_xml_signal_autoconnect(xml); */
-	/* TODO: wonder why this doesn't work? */
+	/* connect signal handlers */
+	//glade_xml_signal_autoconnect(xml); 
+	//it seems like this doesn't like signals in seperate files or something?
+
 	glade_xml_signal_connect(xml,"on_mainwindow_destroy",G_CALLBACK(on_mainwindow_destroy));
 	glade_xml_signal_connect(xml,"on_btndownloadbus_clicked",G_CALLBACK(on_btndownloadbus_clicked));
 	glade_xml_signal_connect(xml,"loadpage",G_CALLBACK(loadpage));
@@ -54,9 +55,11 @@ int main (int argc, char **argv) {
 	glade_xml_signal_connect(xml,"on_btnfaq_clicked",G_CALLBACK(on_btnfaq_clicked));
 
 	load_trains();
+
 	gtk_main();
 
 	//cleanup
 	curl_easy_cleanup(easyhandle);
 	return 0;
 }
+

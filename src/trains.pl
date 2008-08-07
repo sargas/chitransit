@@ -134,7 +134,7 @@
 		['Kedzie'],
 		['California'],
 		['Western'],
-		['Damon'],
+		['Damen'],
 		['18th'],
 		['Polk'],
 		['Ashland'],

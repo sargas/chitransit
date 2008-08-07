@@ -9,45 +9,18 @@ void on_btndownloadbus_clicked(GtkWidget *widget) {
 	char dest[512];
 	char buffer2[512];
 	char dest2[512];
-	FILE *map;
-	FILE *sched; /* not used for cta */
 
 	if(route < 205) {
 		sprintf(buffer,"http://transitchicago.com/maps/Bus/Bus/%d.pdf",route);
 		sprintf(dest,"%s/ctabus/%d.pdf",getProgData(NULL),route);
-		map = fopen(dest,"w");
-		curl_easy_setopt(easyhandle, CURLOPT_WRITEDATA, map);
-		curl_easy_setopt(easyhandle, CURLOPT_URL, buffer);
-		curl_easy_setopt(easyhandle, CURLOPT_ERRORBUFFER, buffer2);
-		/* TODO: Handle error conditions better */
-		if(curl_easy_perform(easyhandle) != 0) {
-			g_warning("Failed to get CTA Bus route!");
-			g_warning(buffer2);
-			fclose(map);
-			return;
-		}
-		fclose(map);
+		downFile(buffer,dest);
 	} else {
 		sprintf(buffer,"http://pacebus.com/pdf/schedules/%dsched.pdf",route);
 		sprintf(dest,"%s/pacebus/%dsched.pdf",getProgData(NULL),route);
 		sprintf(buffer2,"http://pacebus.com/pdf/maps/%dmap.pdf",route);
 		sprintf(dest2,"%s/pacebus/%dmap.pdf",getProgData(NULL),route);
-		map = fopen(dest,"w");
-		curl_easy_setopt(easyhandle, CURLOPT_WRITEDATA, map);
-		curl_easy_setopt(easyhandle, CURLOPT_URL, buffer);
-		if(curl_easy_perform(easyhandle) != 0) {
-			g_warning("Failed to get map of Pace Route!");
-			fclose(map);
-			return;
-		}
-		fclose(map);sched = fopen(dest2,"w");
-		curl_easy_setopt(easyhandle, CURLOPT_WRITEDATA, sched);
-		curl_easy_setopt(easyhandle, CURLOPT_URL, buffer2);
-		if(curl_easy_perform(easyhandle) != 0) {
-			/* TODO delete the map if the schedule failed, so we dont have half a route */
-			g_warning("Failed to get schedule of Pace route :/");
-		}
-		fclose(sched);
+		downFile(buffer,dest);
+		downFile(buffer2,dest2);
 	}
 	buses_load(); /* reload em */
 }

@@ -39,7 +39,8 @@ void update_settings(gchar* widgetname, gchar *settingsname) {
 	g_key_file_set_string(configFile,"chitransit",settingsname,gtk_combo_box_get_active_text(GTK_COMBO_BOX(widget)));
 }
 
-/* TODO: check if paths exists  */
+/* no need to check if paths exist, since we call g_mkdir_with_parents on all data files
+ * also, pdfviewer's existance is handled in the helper */
 void on_btnApplyPrefs_clicked(GtkButton *button) {
 	update_settings("datapath","datapath");
 	update_settings("pdfviewer","pdfviewer");

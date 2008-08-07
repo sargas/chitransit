@@ -11,6 +11,7 @@ typedef struct {
 	GtkButton* downloadbtn; /* the download button */
 	const gchar* url; /* the url (on cta/rta/pace servers) */
 	const gchar* localname; /* our localname for the pdf */
+	gchar* size; /* size of the pdf, w/ units */
 } chimap;
 
 chimap *chimaps; /* array of chimap's, loaded in maps_load */

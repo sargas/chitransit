@@ -18,7 +18,7 @@ void on_btnfaq_clicked(GtkButton *button) {
 	pid_t pid = fork();
 	if(pid == 0) {
 		//just for this fork, we'll redefine standard output
-		freopen(getProgData("faq.txt"),"w",stdout);
+		g_freopen(getProgData("faq.txt"),"w",stdout);
 		execlp("links2","links2","-dump","http://www.chicago-l.org/FAQ.html",0);
 		fclose(stdout);
 		//error

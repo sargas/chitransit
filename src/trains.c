@@ -120,7 +120,7 @@ void load_trains() {
 		{"Kedzie" , "Kedzie" ,5},
 		{"California" , "California" ,6},
 		{"Western" , "Western" ,7},
-		{"Damon" , "Damon" ,8},
+		{"Damen" , "Damen" ,8},
 		{"18th" , "18th" ,9},
 		{"Polk" , "Polk" ,10},
 		{"Ashland" , "Ashland" ,11},
@@ -217,7 +217,6 @@ void load_trains() {
 	}
 }
 
-/* TODO: Show some kind of indication that the download is happening */
 void on_btnupdate_clicked(GtkButton *button) {
 	//down em all
 	for(gint i=0;i<num_of_lines;++i) {
@@ -227,16 +226,9 @@ void on_btnupdate_clicked(GtkButton *button) {
 		for(gint j=0;j<lines[i].num;++j) {
 			gchar url[200];
 			gchar dest[512];
-			FILE* download;
 			g_sprintf(dest,"%s/%s.pdf",trainfolder,lines[i].stations[j].name);
 			g_sprintf(url,"http://transitchicago.com/maps/rail/%s/%s.pdf\n",lines[i].line,lines[i].stations[j].name);
-			download = fopen(dest,"w");
-			curl_easy_setopt(easyhandle,CURLOPT_WRITEDATA,download);
-			curl_easy_setopt(easyhandle,CURLOPT_URL,url);
-			if(curl_easy_perform(easyhandle) != 0) {
-				g_warning("One of the downloads failed :/");
-			}
-			fclose(download);
+			downFile(url,dest);
 		}
 	}
 	load_trains();
