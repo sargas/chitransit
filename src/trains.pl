@@ -20,7 +20,7 @@
 
 # we are generating c code to make gtk objects
 # perl handles multidiminsional arrays better
-# (and everythign else ;) )
+# (and everything else ;) )
 #
 # theres no runtime dependance, but this program needs to be rerun when theres
 # updates to this @stations matrix

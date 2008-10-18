@@ -1,0 +1,9 @@
+Package: chitransit
+Version: 0.707
+Description: Shows Chicago public transit information
+Section: openmoko/applications
+Priority: optional
+Maintainer: sargas <joe@neoturbine.net>
+Architecture: armv4t
+Depends: 
+Source: ${SRC}

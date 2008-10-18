@@ -114,7 +114,7 @@ gboolean downFile(const gchar* url, const gchar* local) {
 
 	//waste time waiting....
 	currentlydowning = TRUE;
-	while (currentlydowning)
+	while (currentlydowning || gtk_events_pending())
 		gtk_main_iteration();
 
 	gtk_widget_hide(GTK_WIDGET(win));
