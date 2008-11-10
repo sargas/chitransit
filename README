@@ -1,13 +1,13 @@
-OpenMoko Sample
+ChiTransit
 ===================
 
-Here you add some text that describes what your application does.
+ChiTransit is a C program for downloading and showing information about the CTA and PACE around Chicago.
 
-Note: For the sake of simplicity, this sample contains a lot of shortcuts.
+This program is released under the GPLv3 or newer. See the file COPYING for more detail. Most of the src/ directory is copylefted by Joseph Jon Booker. The rest of it may be copyrighted by the Free Software Foundation, Openmoko, or Openhand/Intel, see the files themselves for details.
 
-For a real program you should
- * split every page into a dedicated source/header file,
- * derive GObjects, if necessary to implement custom behaviour,
- * use the MokoSearchBar,
- * ...
+I don't expect to do much to this program once released, although if anyone actually uses it or has any feature requests I'd appreciate hearing about it.
 
+--
+Joseph Booker
+* joe@neoturbine.net
+* sargas on #neoturbine, see neoturbine.net

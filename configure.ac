@@ -1,5 +1,5 @@
 AC_PREREQ(2.53)
-AC_INIT(chitransit, 0.0.1, http://no.url.yet/)
+AC_INIT(chitransit, 0.707, http://no.url.yet/)
 AM_INIT_AUTOMAKE()
 AC_CONFIG_SRCDIR(src/main.c)
 AM_CONFIG_HEADER(config.h)
@@ -28,4 +28,6 @@ src/Makefile
 data/Makefile
 po/Makefile.in
 ])
+
+AC_CONFIG_MACRO_DIR([m4])
 

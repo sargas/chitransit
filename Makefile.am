@@ -7,3 +7,4 @@ MAINTAINERCLEANFILES = aclocal.m4 compile config.guess config.sub \
                        mkinstalldirs                              \
                        intltool-extract intltool-merge intltool-update
 
+ACLOCAL_AMFLAGS = -I m4
