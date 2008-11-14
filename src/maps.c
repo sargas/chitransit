@@ -32,7 +32,7 @@ void maps_load() {
 			"http://www.spiegl.org/pedway/234-235.pdf",
 			"peds.pdf",
 			"101K"
-		}, {
+		}, { //TODO: remove, way too big
 			GTK_BUTTON(glade_xml_get_widget(xml, "btnsys")),
 			GTK_BUTTON(glade_xml_get_widget(xml, "btndownsys")),
 			"http://rtachicago.com/CMS400Min/uploadedFiles/RTA_May%202008_System_Map.pdf",

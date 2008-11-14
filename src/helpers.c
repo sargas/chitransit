@@ -38,7 +38,7 @@ void openPDF(gchar* path) {
 
 /* returns the path to a given data file (usually prepends /usr/share/) 
 */
-gchar* getDataFile(gchar* file) {
+const char* getDataFile(const char* file) {
 	return g_strconcat(DATADIR,"/chitransit/",file,NULL);
 }
 
@@ -46,7 +46,7 @@ gchar* getDataFile(gchar* file) {
  * usually this will be in /tmp/chitransit/
  * appends anything given to it
 */
-gchar* getProgData(gchar* append) {
+const gchar* getProgData(const gchar* append) {
 	return g_strconcat(g_key_file_get_string(configFile,"chitransit","datapath",NULL),append,NULL);
 }
 
@@ -60,17 +60,17 @@ void loadConfig() {
 	//aparently i need to create the key file, even though it starts empty :/
 	configFile = g_key_file_new();
 	
-	if(g_mkdir_with_parents(g_strconcat(g_getenv("HOME"),"/.chitransit/",NULL),0755) == 0) {
-		if( g_access(g_strconcat(g_getenv("HOME"),"/.chitransit/config",NULL),R_OK) == 0
-				|| (fid = g_creat((g_strconcat(g_getenv("HOME"),"/.chitransit/config",NULL)),0644 )) > 0) {
+	if(g_mkdir_with_parents(g_strconcat(g_get_home_dir(),"/.chitransit/",NULL),0755) == 0) {
+		if( g_access(g_strconcat(g_get_home_dir(),"/.chitransit/config",NULL),R_OK) == 0
+				|| (fid = g_creat((g_strconcat(g_get_home_dir(),"/.chitransit/config",NULL)),0644 )) > 0) {
 			if(fid != -42) { //this means that we created (and opened) a file......we ready for the responsibility?
 				close(fid);
 				/* write some dummy content, else gkeyfile wouldn't load */
-				g_file_set_contents(g_strconcat(g_getenv("HOME"),"/.chitransit/config",NULL),
+				g_file_set_contents(g_strconcat(g_get_home_dir(),"/.chitransit/config",NULL),
 						"[chitransit]\ndatapath=/tmp/chitransit/\npdfviewer=epdfview\n"
 						,-1,NULL);
 			}
-			if(g_key_file_load_from_file(configFile,g_strconcat(getenv("HOME"),"/.chitransit/config",NULL),0,NULL) == FALSE) {
+			if(g_key_file_load_from_file(configFile,g_strconcat(g_get_home_dir(),"/.chitransit/config",NULL),0,NULL) == FALSE) {
 				g_error("~/.chitransit/config aint a valid key-value pairs file aparently?");
 				exit(-1);
 			}
@@ -90,11 +90,13 @@ void saveConfig() {
 	gsize length;
 
 	configstring = g_key_file_to_data(configFile,&length,NULL);
-	g_file_set_contents(g_strconcat(g_getenv("HOME"),"/.chitransit/config",NULL),configstring,length,NULL);
+	g_file_set_contents(g_strconcat(g_get_home_dir(),"/.chitransit/config",NULL),configstring,length,NULL);
 }
 
 /* downloads a file
  * assumes parent directories have already been made */
+// TODO: make this not flash auxilary window so much
+// TODO: make a way to cancel this (it takes absurdly long)
 gboolean downFile(const gchar* url, const gchar* local) {
 	pthread_t tid;
 	pthread_attr_t attr;

@@ -239,13 +239,13 @@ void on_btnupdate_clicked(GtkButton *button) {
 	//down em all
 	for(gint i=0;i<num_of_lines;++i) {
 		gchar trainfolder[512];
-		g_sprintf(trainfolder,"%s/%s",getProgData("trains"),lines[i].line);
+		g_snprintf(trainfolder,512,"%s/%s",getProgData("trains"),lines[i].line);
 		g_mkdir_with_parents(trainfolder,0755);
 		for(gint j=0;j<lines[i].num;++j) {
 			gchar url[200];
 			gchar dest[512];
-			g_sprintf(dest,"%s/%s.pdf",trainfolder,lines[i].stations[j].name);
-			g_sprintf(url,"http://transitchicago.com/maps/rail/%s/%s.pdf\n",lines[i].line,lines[i].stations[j].name);
+			g_snprintf(dest,512,"%s/%s.pdf",trainfolder,lines[i].stations[j].name);
+			g_snprintf(url,200,"http://transitchicago.com/maps/rail/%s/%s.pdf\n",lines[i].line,lines[i].stations[j].name);
 			downFile(url,dest);
 		}
 	}
@@ -258,7 +258,7 @@ void openStation(GtkComboBox *box) {
 		if(box == lines[i].box) { //found ya ;)
 			gint pos = gtk_combo_box_get_active(box);
 			gchar pdf[512];
-			g_sprintf(pdf,"%s/%s/%s.pdf",getProgData("trains"),lines[i].line,lines[i].stations[pos].name);
+			g_snprintf(pdf,512,"%s/%s/%s.pdf",getProgData("trains"),lines[i].line,lines[i].stations[pos].name);
 			openPDF(pdf);
 			return;
 		}

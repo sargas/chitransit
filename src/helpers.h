@@ -49,8 +49,8 @@ gboolean currentlydowning;
 GKeyFile *configFile;
 
 void openPDF(gchar* path);
-gchar* getDataFile(gchar* file);
-gchar* getProgData(gchar* append);
+const gchar* getDataFile(const gchar* file);
+const gchar* getProgData(const gchar* append);
 void loadConfig();
 void saveConfig();
 gboolean downFile(const gchar* url, const gchar* local);

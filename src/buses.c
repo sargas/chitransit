@@ -22,20 +22,20 @@ void on_btndownloadbus_clicked(GtkWidget *widget) {
 	GtkSpinButton *busroute = GTK_SPIN_BUTTON(glade_xml_get_widget(xml, "busroute"));
 	gint route = gtk_spin_button_get_value_as_int(busroute);
 	/* buffer stores urls, dest stores where we put em */
-	char buffer[512];
-	char dest[512];
-	char buffer2[512];
-	char dest2[512];
+	gchar buffer[512];
+	gchar dest[512];
+	gchar buffer2[512];
+	gchar dest2[512];
 
 	if(route < 205) {
-		sprintf(buffer,"http://transitchicago.com/maps/Bus/Bus/%d.pdf",route);
-		sprintf(dest,"%s/ctabus/%d.pdf",getProgData(NULL),route);
+		g_snprintf(buffer,512,"http://transitchicago.com/maps/Bus/Bus/%d.pdf",route);
+		g_snprintf(dest,512,"%s/ctabus/%d.pdf",getProgData(NULL),route);
 		downFile(buffer,dest);
 	} else {
-		sprintf(buffer,"http://pacebus.com/pdf/schedules/%dsched.pdf",route);
-		sprintf(dest,"%s/pacebus/%dsched.pdf",getProgData(NULL),route);
-		sprintf(buffer2,"http://pacebus.com/pdf/maps/%dmap.pdf",route);
-		sprintf(dest2,"%s/pacebus/%dmap.pdf",getProgData(NULL),route);
+		g_snprintf(buffer,512,"http://pacebus.com/pdf/schedules/%dsched.pdf",route);
+		g_snprintf(dest,512,"%s/pacebus/%dsched.pdf",getProgData(NULL),route);
+		g_snprintf(buffer2,512,"http://pacebus.com/pdf/maps/%dmap.pdf",route);
+		g_snprintf(dest2,512,"%s/pacebus/%dmap.pdf",getProgData(NULL),route);
 		downFile(buffer,dest);
 		downFile(buffer2,dest2);
 	}
@@ -48,22 +48,23 @@ void on_ctaroutes_changed(GtkWidget *widget) {
 	gchar url[512];
 	if(route == NULL) {
 		return; //this happens when page loads
-	}
-	g_sprintf(url,"%s/ctabus/%s.pdf",getProgData(NULL),route);
+	} //note: since getProgData(NULL) will have an ending slash,
+	  //      we'll have a double slash. better then alternative
+	g_snprintf(url,512,"%s/ctabus/%s.pdf",getProgData(NULL),route);
 	openPDF(url);
 }
 void on_btnpacemap_clicked(GtkWidget *widget) {
 	GtkComboBox *routeWidget = GTK_COMBO_BOX(glade_xml_get_widget(xml, "paceroutes"));
 	gchar* route = gtk_combo_box_get_active_text(routeWidget);
 	gchar url[512];
-	g_sprintf(url,"%s/pacebus/%smap.pdf",getProgData(NULL),route);
+	g_snprintf(url,512,"%s/pacebus/%smap.pdf",getProgData(NULL),route);
 	openPDF(url);
 }
 void on_btnpacesched_clicked(GtkWidget *widget) {
 	GtkComboBox *routeWidget = GTK_COMBO_BOX(glade_xml_get_widget(xml, "paceroutes"));
 	gchar* route = gtk_combo_box_get_active_text(routeWidget);
 	gchar url[512];
-	g_sprintf(url,"%s/pacebus/%ssched.pdf",getProgData(NULL),route);
+	g_snprintf(url,512,"%s/pacebus/%ssched.pdf",getProgData(NULL),route);
 	openPDF(url);
 }
 
