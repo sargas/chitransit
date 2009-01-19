@@ -1,5 +1,6 @@
 AC_PREREQ(2.63)
-AC_INIT([chitransit],[0.707],[http://no.url.yet/])
+AC_INIT([chitransit],[0.707],[http://github.com/sargas/chitransit/tree/master])
+AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE()
 AC_CONFIG_SRCDIR(src/main.c)
 AC_CONFIG_HEADERS([config.h])
@@ -9,14 +10,10 @@ AC_SEARCH_LIBS([strerror],[cposix])
 AC_PROG_CC
 AC_PROG_CC_STDC
 AC_HEADER_STDC
-LT_INIT
-IT_PROG_INTLTOOL([0.35.0])
 
-dnl i18n support
-GETTEXT_PACKAGE=AC_PACKAGE_NAME
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package])
-AC_SUBST(GETTEXT_PACKAGE)
-AM_GLIB_GNU_GETTEXT
+AC_CHECK_HEADERS([fcntl.h stdlib.h unistd.h])
+AC_FUNC_FORK
+AC_TYPE_PID_T
 
 PKG_CHECK_MODULES(DEPENDENCIES, libglade-2.0 libcurl)
 
@@ -26,9 +23,5 @@ AC_CONFIG_FILES([
 Makefile
 src/Makefile
 data/Makefile
-po/Makefile.in
 ])
 AC_OUTPUT
-
-AC_CONFIG_MACRO_DIR([m4])
-
