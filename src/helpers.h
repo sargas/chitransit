@@ -26,6 +26,7 @@
 #include <curl/curl.h>
 
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -35,24 +36,38 @@
 #include <main.h>
 
 typedef struct {
-	const gchar* url;
-	const gchar* local;
+	GSList* url;
+	GSList* local;
 } filehelper;
 
 //worked better like this for some reason
 filehelper tempstruct;
 //needed for timing purposes
 gboolean currentlydowning;
+//TODO: refactor code to not need this
+gboolean downerrorhappened;
 
 /* our config file access 
  * Made by loadConfig() */
 GKeyFile *configFile;
+
+//cancel the dl
+void on_btnCancelDl_clicked(GtkButton *button);
+gboolean flagGETTHEFUCKOUT;
+
+//for tracking multiple dls
+gint numFiles;
+gint numFilesDone;
 
 void openPDF(gchar* path);
 const gchar* getDataFile(const gchar* file);
 const gchar* getProgData(const gchar* append);
 void loadConfig();
 void saveConfig();
-gboolean downFile(const gchar* url, const gchar* local);
+//convience function
+gboolean downOneFile(gchar* url, gchar* local);
+//Both GSLists are of gchar*
+gboolean downFile(GSList* url, GSList* local);
+int progress_callback(void*,double,double,double,double);
 void* downFileHelper(void *ptr);
 #endif

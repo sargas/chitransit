@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=ChiTransit
-Comment=Shows CTA information
+Comment=Shows CTA/PACE information
 Type=Application
 Exec=chitransit
 Terminal=false

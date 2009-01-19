@@ -237,6 +237,8 @@ void load_trains() {
 
 void on_btnupdate_clicked(GtkButton *button) {
 	//down em all
+	GSList *lurl = NULL;
+	GSList *ldest = NULL;
 	for(gint i=0;i<num_of_lines;++i) {
 		gchar trainfolder[512];
 		g_snprintf(trainfolder,512,"%s/%s",getProgData("trains"),lines[i].line);
@@ -246,10 +248,16 @@ void on_btnupdate_clicked(GtkButton *button) {
 			gchar dest[512];
 			g_snprintf(dest,512,"%s/%s.pdf",trainfolder,lines[i].stations[j].name);
 			g_snprintf(url,200,"http://transitchicago.com/maps/rail/%s/%s.pdf\n",lines[i].line,lines[i].stations[j].name);
-			downFile(url,dest);
+			lurl = g_slist_prepend(lurl,url);
+			ldest = g_slist_prepend(ldest,dest);
 		}
 	}
+	if(!downFile(lurl,ldest)) goto died;
 	load_trains();
+	return;
+died:
+	//TODO: delete train info already dled
+	return;
 }
 
 void openStation(GtkComboBox *box) {

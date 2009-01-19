@@ -30,14 +30,14 @@ void on_btndownloadbus_clicked(GtkWidget *widget) {
 	if(route < 205) {
 		g_snprintf(buffer,512,"http://transitchicago.com/maps/Bus/Bus/%d.pdf",route);
 		g_snprintf(dest,512,"%s/ctabus/%d.pdf",getProgData(NULL),route);
-		downFile(buffer,dest);
+		downOneFile(buffer,dest);
 	} else {
 		g_snprintf(buffer,512,"http://pacebus.com/pdf/schedules/%dsched.pdf",route);
 		g_snprintf(dest,512,"%s/pacebus/%dsched.pdf",getProgData(NULL),route);
 		g_snprintf(buffer2,512,"http://pacebus.com/pdf/maps/%dmap.pdf",route);
 		g_snprintf(dest2,512,"%s/pacebus/%dmap.pdf",getProgData(NULL),route);
-		downFile(buffer,dest);
-		downFile(buffer2,dest2);
+		downOneFile(buffer,dest);
+		downOneFile(buffer2,dest2);
 	}
 	buses_load(); /* reload em */
 }

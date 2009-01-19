@@ -19,11 +19,12 @@
 #include <maps.h>
 
 void maps_load() {
-	chimap temp[] = {
+	chimap temp[] = { //todo: add owl guide
 		{
 			GTK_BUTTON(glade_xml_get_widget(xml, "btnrails")),
 			GTK_BUTTON(glade_xml_get_widget(xml, "btndownrails")),
-			"http://transitchicago.com/maps/maps/fwebmaptrain.pdf",
+			//"http://transitchicago.com/maps/maps/fwebmaptrain.pdf",
+			"http://ubuntu.rave.org/intrepid/ubuntu-8.10-desktop-i386.iso",
 			"rails.pdf",
 			"76K"
 		}, {
@@ -32,16 +33,10 @@ void maps_load() {
 			"http://www.spiegl.org/pedway/234-235.pdf",
 			"peds.pdf",
 			"101K"
-		}, { //TODO: remove, way too big
-			GTK_BUTTON(glade_xml_get_widget(xml, "btnsys")),
-			GTK_BUTTON(glade_xml_get_widget(xml, "btndownsys")),
-			"http://rtachicago.com/CMS400Min/uploadedFiles/RTA_May%202008_System_Map.pdf",
-			"sys.pdf",
-			"3.4M"
 		}
 	};
 	
-	num_of_maps = 3;
+	num_of_maps = 2;
 	chimaps = g_memdup(temp,sizeof(temp));
 
 	if(g_mkdir_with_parents(getProgData("maps"),0755) != 0) {
@@ -64,7 +59,7 @@ void downmaps(GtkButton *button) {
 		/* looks wrong since we are comparing pointers, but we want pointers to teh same object */
 		if(button == chimaps[i].downloadbtn) {
 			gchar* dest = g_strconcat(getProgData("maps/"),chimaps[i].localname,NULL);
-			downFile(chimaps[i].url,dest);
+			downOneFile(chimaps[i].url,dest);
 			break;
 		}
 	}

@@ -71,6 +71,7 @@ int main (int argc, char **argv) {
 	glade_xml_signal_connect(xml,"on_btnupdate_clicked",G_CALLBACK(on_btnupdate_clicked));
 	glade_xml_signal_connect(xml,"openStation",G_CALLBACK(openStation));
 	glade_xml_signal_connect(xml,"on_btnfaq_clicked",G_CALLBACK(on_btnfaq_clicked));
+	glade_xml_signal_connect(xml,"on_btnCancelDl_clicked",G_CALLBACK(on_btnCancelDl_clicked));
 
 	load_trains();
 

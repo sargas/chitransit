@@ -19,6 +19,7 @@
 #include <helpers.h>
 
 /* Runs the user's pdf viewer on a file *
+ * TODO: use libpoppler to have a quick internal pdf viewer
 */
 void openPDF(gchar* path) {
 	if(path == NULL) {
@@ -51,6 +52,7 @@ const gchar* getProgData(const gchar* append) {
 }
 
 /* load config file
+ * why does this function look so ugly!?!?!?!?
  */
 void loadConfig() {
 	gint fid = -42;
@@ -66,6 +68,7 @@ void loadConfig() {
 			if(fid != -42) { //this means that we created (and opened) a file......we ready for the responsibility?
 				close(fid);
 				/* write some dummy content, else gkeyfile wouldn't load */
+				//note, this is where the default settings are set
 				g_file_set_contents(g_strconcat(g_get_home_dir(),"/.chitransit/config",NULL),
 						"[chitransit]\ndatapath=/tmp/chitransit/\npdfviewer=epdfview\n"
 						,-1,NULL);
@@ -93,11 +96,21 @@ void saveConfig() {
 	g_file_set_contents(g_strconcat(g_get_home_dir(),"/.chitransit/config",NULL),configstring,length,NULL);
 }
 
+gboolean downOneFile(gchar* url, gchar* local) {
+	GSList* lurl = NULL;
+	lurl = g_slist_append(lurl,url);
+	GSList* llocal = g_slist_append(NULL,local);
+	gboolean status = downFile(lurl,llocal);
+	g_slist_free(lurl);g_slist_free(llocal);
+	return status;
+}
+
 /* downloads a file
- * assumes parent directories have already been made */
+ * assumes parent directories have already been made
+ * versa */
 // TODO: make this not flash auxilary window so much
-// TODO: make a way to cancel this (it takes absurdly long)
-gboolean downFile(const gchar* url, const gchar* local) {
+// TODO: make it assert same size lists
+gboolean downFile(GSList* url, GSList* local ) {
 	pthread_t tid;
 	pthread_attr_t attr;
 	
@@ -112,28 +125,72 @@ gboolean downFile(const gchar* url, const gchar* local) {
 	pthread_create(&tid,&attr,downFileHelper,&tempstruct);
 	pthread_attr_destroy(&attr);
 
+	//waste time waiting....
+	flagGETTHEFUCKOUT  = FALSE;
+	currentlydowning = TRUE;
+	downerrorhappened = FALSE;
 	pthread_join(tid,NULL);
 
-	//waste time waiting....
-	currentlydowning = TRUE;
 	while (currentlydowning || gtk_events_pending())
 		gtk_main_iteration();
 
 	gtk_widget_hide(GTK_WIDGET(win));
+	if(flagGETTHEFUCKOUT //aka we canceled
+		|| downerrorhappened) //or couldn't get everything
+		return FALSE;
+
 	return TRUE;
 }
 
 void* downFileHelper(void *ptr) {
 	filehelper *temp2 = (filehelper*)ptr;
 	filehelper temp = *temp2;
-	const gchar* url = temp.url;
-	FILE* localfile = g_fopen(temp.local,"w");
-	curl_easy_setopt(easyhandle,CURLOPT_WRITEDATA,localfile);
-	curl_easy_setopt(easyhandle,CURLOPT_URL,url);
-	if(curl_easy_perform(easyhandle) != 0) {
-		g_warning(g_strconcat("The following url could not be downloaded: ",url,NULL));
+	GSList* lurl = temp.url;
+	GSList* llocal = temp.local;
+	gchar* url;
+	gchar* local;
+	FILE* localfile = NULL;
+	GtkProgressBar *bar = GTK_PROGRESS_BAR(glade_xml_get_widget(xml,"progbar"));
+	//i no, its bad
+	numFiles = g_slist_position(lurl,g_slist_last(lurl))+1;
+	numFilesDone = 0;
+	for(;lurl != NULL;lurl = g_slist_next(lurl)) {
+		//TODO: don't use internal structure of GSList's
+		//maybe use g_slist_foreach
+		url = (gchar*)lurl->data;
+		local = (gchar*)llocal->data;
+		llocal = g_slist_next(llocal); //want to inc after
+		localfile = g_fopen(local,"w");
+
+		curl_easy_setopt(easyhandle,CURLOPT_WRITEDATA,localfile);
+		curl_easy_setopt(easyhandle,CURLOPT_URL,url);
+		curl_easy_setopt(easyhandle, CURLOPT_NOPROGRESS, 0);
+		curl_easy_setopt(easyhandle,CURLOPT_PROGRESSFUNCTION,progress_callback);
+		curl_easy_setopt(easyhandle,CURLOPT_PROGRESSDATA, bar);
+		//to keep like this or not? hmm...
+		curl_easy_setopt(easyhandle,CURLOPT_VERBOSE,1);
+		if(curl_easy_perform(easyhandle) != 0) {
+			g_warning(g_strconcat("The following url could not be downloaded: ",url,NULL));
+			downerrorhappened  = TRUE;
+			goto ENDING_down_helper;
+		}
+		if(flagGETTHEFUCKOUT) goto ENDING_down_helper;
+		numFilesDone++;
 	}
+ENDING_down_helper:
 	fclose(localfile);
 	currentlydowning = FALSE;
 	pthread_exit((void*) 0);
+}
+
+int progress_callback(void *vbar,double t,double d,double a,double b) {
+	GtkProgressBar* bar = (GtkProgressBar*)vbar; //prevents warnings
+	//progress on current file, times number of file+1 / total number of files
+	if(t != 0) gtk_progress_bar_set_fraction(bar,d/t*(numFilesDone+1)/numFiles);
+	if(flagGETTHEFUCKOUT) return 1; //listen to the flag
+	return 0;
+}
+
+void on_btnCancelDl_clicked(GtkButton *button) {
+	flagGETTHEFUCKOUT = TRUE;
 }

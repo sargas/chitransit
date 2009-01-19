@@ -46,7 +46,7 @@ void on_btnfaq_clicked(GtkButton *button) {
 	} else {
 		int status,died;
 		died = wait(&status);
-		printf("%d\n",WEXITSTATUS(status));
+		//printf("%d\n",WEXITSTATUS(status));
 		if(WEXITSTATUS(status) != 0) {
 			GtkTextView *view = GTK_TEXT_VIEW(glade_xml_get_widget(xml,"faqviewer"));
 			GtkTextBuffer* buff = gtk_text_view_get_buffer(view);

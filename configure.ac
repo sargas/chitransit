@@ -1,16 +1,16 @@
-AC_PREREQ(2.53)
-AC_INIT(chitransit, 0.707, http://no.url.yet/)
+AC_PREREQ(2.63)
+AC_INIT([chitransit],[0.707],[http://no.url.yet/])
 AM_INIT_AUTOMAKE()
 AC_CONFIG_SRCDIR(src/main.c)
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE
 
-AC_ISC_POSIX
+AC_SEARCH_LIBS([strerror],[cposix])
 AC_PROG_CC
 AC_PROG_CC_STDC
-AC_STDC_HEADERS
-AC_PROG_LIBTOOL
-AC_PROG_INTLTOOL([0.35.0])
+AC_HEADER_STDC
+LT_INIT
+IT_PROG_INTLTOOL([0.35.0])
 
 dnl i18n support
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
@@ -22,12 +22,13 @@ PKG_CHECK_MODULES(DEPENDENCIES, libglade-2.0 libcurl)
 
 AC_SUBST(DEPENDENCIES)
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 src/Makefile
 data/Makefile
 po/Makefile.in
 ])
+AC_OUTPUT
 
 AC_CONFIG_MACRO_DIR([m4])
 
